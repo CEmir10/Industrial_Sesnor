@@ -97,22 +97,31 @@ def main():
     pressure_set, _, _, _, _ = read_configuration()
 
     i = 0
+    data_x = []
+    data_y = []
     while(True):
 
-        
-        set_pressure(i*500)
+        # X-axis
+        set_pressure_value = i*500
+        data_x.append(set_pressure_value)
+        set_pressure(set_pressure_value)
+
         time.sleep(2)
          #measure()
+
+        # Y-axis
         data=read_preset_pressure()
+        data_y.append(data)
         print(read_preset_pressure())
 
         i += 0.5
         if(i > 14):
-            plt.plot(data)
-            plt.show()
             i = 0
-        time.sleep(2)           
+            break
+        time.sleep(2)       
 
+    plt.plot(data_x, data_y)
+    plt.show()
 
 if __name__ == '__main__':
     main()
